@@ -15,4 +15,5 @@ Go to [http://localhost:3000/movie](http://localhost:3000/movie) to see the curr
 Versions used:
 - node v10.7.0
 - npm v20.15.0
-- NextJS v14.2.4  
+- NextJS v14.2.4
+- clsx 2.1.1  
