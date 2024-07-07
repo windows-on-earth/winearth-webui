@@ -15,7 +15,7 @@ export default function Page() {
         <MainVideo source={test_movie}/>
         {/* <MainPhoto/> */}
         {/* Media UI elements */}
-        <div className="flex flex-row border-red-500 border-2">
+        <div className="flex flex-row justify-between border-red-500 border-2">
           {/* Media Info */}
           <div className="flex flex-col basis-3/4 flex-initial gap-2 border-green-500 border-2">
             <div className="border-blue-500 border-2">
@@ -29,9 +29,11 @@ export default function Page() {
               </h3>
             </div>
           </div>
-          <Switch/>
+          <div className="">
+            <Switch className="m-2"/>
+          </div>          
           {/* Social */}
-          <div className="flex flex-col gap-1 ml-auto m-0.5">
+          <div className="flex flex-col gap-1 self-end m-0.5">
             <Button className="inline-block h-16 w-16">
               Share
             </Button>
