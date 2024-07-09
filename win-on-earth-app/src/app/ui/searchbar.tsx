@@ -1,10 +1,11 @@
 import Image from 'next/image'
+import Button from '@/app/ui/button'
 
 export default function SearchBar() {
   return (
     <>
       {/* Search Box */}
-      <div className="flex flex-row block relative mb-2 h-8 w-full bg-white text-black ">
+      <div className="flex flex-row block relative mb-2 h-10 w-full bg-white text-black ">
         <Image
           src="/MagnifyingGlass.webp"
           width={256}
