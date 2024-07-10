@@ -10,7 +10,7 @@ Run the dev server:
 ```bash
 npm run dev
 ```
-Go to [http://localhost:3000/movie](http://localhost:3000/movie) to see the current progres for the web UI
+Go to [http://localhost:3000/movie](http://localhost:3000/movies) to see the current progress for the web UI
 
 Versions used:
 - node v10.7.0
