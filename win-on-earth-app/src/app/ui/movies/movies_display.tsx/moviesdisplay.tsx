@@ -6,6 +6,7 @@ import Link from 'next/link';
 interface movieProperties {
   "movie": string,
   "url": string,
+  "url_rt": string,
   "iis_mission": string,
   "time_stamp": number,
   "seconds": number,

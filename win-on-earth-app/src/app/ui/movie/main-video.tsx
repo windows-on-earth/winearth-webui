@@ -3,8 +3,9 @@ type Props = {
 }
 
 export default function MainVideo({source} : Props) {
+  console.log(source)
   return (
-    <div className="border-red-500 border-2 block relative mb-2 max-h-svh max-w-full h-fit w-full">
+    <div className="border-red-500 border-2 block relative mb-2 max-h-svh max-w-full w-full">
     <video 
       src={source}
       controls
