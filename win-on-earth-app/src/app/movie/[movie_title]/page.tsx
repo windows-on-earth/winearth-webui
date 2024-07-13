@@ -5,12 +5,14 @@ import MovieElements from '@/app/ui/movie/movie-elements'
 const API_MOVIES_LIST_PATH = "http://127.0.0.1:8000/api/movies"
 
 async function getMovieData(movie_title: string) {
-  const res = await fetch(`${API_MOVIES_LIST_PATH}/${movie_title}`)
-
+  const res = await fetch(`${API_MOVIES_LIST_PATH}/${movie_title}`, {
+    headers: {
+      'Accept': 'application/json',
+    }
+  })
   if (!res.ok) {
     throw new Error('Failed to fetch data')
   }
-
   return res.json()
 }
 
