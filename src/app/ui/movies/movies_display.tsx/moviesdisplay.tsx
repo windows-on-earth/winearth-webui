@@ -36,9 +36,12 @@ export default function MoviesDisplay() {
       });
   }, [])
   return (
-    <div>
+    <div className="grid grid-cols-5 place-items-center gap-2 w-2/3 m-auto">
       {moviesList.map((item: movieProperties) => (
-        <Link key={item.movie} href={`movie/${item.movie}`} className="block">{item.movie}</Link>
+        <div className="flex flex-col items-center">
+          <div className="border-red-500 border-2 h-[72px] w-32"></div>
+          <Link key={item.movie} href={`movie/${item.movie}`} className="block">{item.movie}</Link>
+        </div>        
       ))}
     </div>
   )
