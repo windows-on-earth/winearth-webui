@@ -9,6 +9,16 @@ const nextConfig = {
       },
     ]
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'windows-on-earth.sdsc.osn.xsede.org',
+        port: '',
+        pathname: '/movies/**',
+      }
+    ]
+  }
 };
 
 export default nextConfig;
