@@ -5,7 +5,7 @@ export default function SearchBar() {
   return (
     <>
       {/* Search Box */}
-      <div className="flex flex-row block relative mb-2 h-10 w-full bg-white text-black ">
+      <div className="hidden flex flex-row block relative mb-2 h-10 w-full bg-white text-black ">
         <Image
           src="/MagnifyingGlass.webp"
           width={256}
