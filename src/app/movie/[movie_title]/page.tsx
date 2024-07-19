@@ -20,8 +20,6 @@ export default async function Page({ params }: { params: { movie_title: string }
   const movieData = await getMovieData(params.movie_title)
   return (
     <main>
-      <h1>Windows On Earth</h1>
-      <p>See Earth through the Astronauts&apos; Lens</p>
       <div className="flex flex-col relative top-12 left-24 w-3/5">
         <SearchBar />
         <MovieElements data={movieData}/>
