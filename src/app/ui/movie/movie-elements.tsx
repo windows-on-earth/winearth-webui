@@ -31,6 +31,7 @@ interface movieElementProps {
 
 export default function MovieElements( { data } : movieElementProps) {
   const [isTimeLapse, setTimeLapse] = useState(false)
+  const datetime = new Date(data.time_stamp)
 
   const handleToggle = () => {
     setTimeLapse(!isTimeLapse)
@@ -49,17 +50,17 @@ export default function MovieElements( { data } : movieElementProps) {
       <MainVideo source={getMovieSource()}/>
       {/* <MainPhoto/> */}
       {/* Media UI elements */}
-      <div className="flex flex-row justify-between border-red-500 border-2">
+      <div className="flex flex-row justify-between">
         {/* Media Info */}
-        <div className="flex flex-col basis-3/4 flex-initial gap-2 border-green-500 border-2">
-          <div className="border-blue-500 border-2">
+        <div className="flex flex-col basis-3/4 flex-initial gap-2">
+          <div className="">
             <h2 className="text-yellow-500 text-5xl">
               {data.movie}
             </h2>
           </div>
-          <div className="border-yellow-500 border-2">
+          <div className="">
             <h3 className="text-white text-2xl">
-              Date Taken:
+              Date Taken: {datetime.toString()}
             </h3>
           </div>
         </div>

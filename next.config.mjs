@@ -5,10 +5,20 @@ const nextConfig = {
       {
         source: '/',
         destination: '/movies',
-        permanent: true,
+        permanent: false,
       },
     ]
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'windows-on-earth.sdsc.osn.xsede.org',
+        port: '',
+        pathname: '/movies/**',
+      }
+    ]
+  }
 };
 
 export default nextConfig;
