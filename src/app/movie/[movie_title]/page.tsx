@@ -1,8 +1,8 @@
 import SearchBar from '@/app/ui/searchbar'
 import { PathParamsContext } from 'next/dist/shared/lib/hooks-client-context.shared-runtime'
 import MovieElements from '@/app/ui/movie/movie-elements'
-
-const API_MOVIES_LIST_PATH = "http://127.0.0.1:8000/api/movies"
+import { useRouter } from 'next/router'
+import { API_MOVIES_LIST_PATH, movieProperties } from '@/app/lib/constants'
 
 async function getMovieData(movie_title: string) {
   const res = await fetch(`${API_MOVIES_LIST_PATH}/${movie_title}`, {
@@ -14,6 +14,14 @@ async function getMovieData(movie_title: string) {
     throw new Error('Failed to fetch data')
   }
   return res.json()
+}
+
+export async function generateStaticParams() {
+  const movies = await fetch(API_MOVIES_LIST_PATH)
+    .then((res) => res.json())
+  return movies.map((movie: movieProperties) => ({
+    movie_title: movie.movie,
+  }))
 }
 
 export default async function Page({ params }: { params: { movie_title: string } }) {

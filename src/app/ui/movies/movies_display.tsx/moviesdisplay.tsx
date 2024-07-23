@@ -4,29 +4,10 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import clsx from 'clsx';
+import { API_MOVIES_LIST_PATH, movieProperties } from '@/app/lib/constants';
 
-interface movieProperties {
-  "movie": string,
-  "url": string,
-  "url_rt": string,
-  "thumbnail_512": string,
-  "iis_mission": string,
-  "time_stamp": number,
-  "seconds": number,
-  "images": number,
-  "start_latitude": number,
-  "start_longitude": number,
-  "end_latitude": number,
-  "end_longitude": number,
-  "model": string,
-  "lens": string,
-  "iso": string,
-  "shutter_speed": string,
-  "f_number": string
-}
 
-export default function MoviesDisplay() {
-  const API_MOVIES_LIST_PATH = "http://127.0.0.1:8000/api/movies/"
+export default function MoviesDisplay() {  
   const [moviesList, setMoviesList] = useState([])
   const [isListView, setListView] = useState(true)
   const router = useRouter()
@@ -75,7 +56,7 @@ export default function MoviesDisplay() {
       {!isListView ? 
         <div className="grid grid-cols-5 place-items-center gap-2 m-auto">
           {moviesList.map((item: movieProperties) => (
-            <div className="flex flex-col items-center cursor-pointer" onClick={() => router.push(`movie/${item.movie}`)}>
+            <div className="flex flex-col items-center cursor-pointer" onClick={() => router.push(`movie/${item.movie}`)} key={item.movie}>
               <Image
                 src={item.thumbnail_512}
                 width={512}
@@ -87,7 +68,7 @@ export default function MoviesDisplay() {
         </div> : 
         <div className="flex flex-col justify-between w-full m-auto border-t-4 border-blue-200/25 divide-y-4 divide-blue-200/25">
           {moviesList.map((item: movieProperties) => (
-            <div className="flex items-center gap-96 cursor-pointer p-2" onClick={() => router.push(`movie/${item.movie}`)}>
+            <div className="flex items-center gap-96 cursor-pointer p-2" onClick={() => router.push(`movie/${item.movie}`)} key={item.movie}>
               <Image
                 src={item.thumbnail_512}
                 width={512/3}
