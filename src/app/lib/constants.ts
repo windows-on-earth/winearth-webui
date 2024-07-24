@@ -1,4 +1,3 @@
-export const API_MOVIES_LIST_PATH = "https://winearth.sdsc.edu/api/movies/"
 export interface movieProperties {
     "movie": string,
     "url": string,
