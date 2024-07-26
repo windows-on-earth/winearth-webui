@@ -1,5 +1,5 @@
 # Declare base image
-FROM node:lts-alpine3.14
+FROM node:lts-alpine3.20
 # Build Step
 WORKDIR /app
 
