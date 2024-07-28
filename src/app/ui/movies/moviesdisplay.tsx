@@ -35,18 +35,20 @@ export default function MoviesDisplay() {
       <div className="border-blue-400 border-2 ml-auto w-fit ">
         <button className="flex" onClick={handleToggleView}>
           <div className={clsx(
-              "w-16 bg-black",
+              "w-16",
               {
-                "bg-slate-400": isListView
+                "bg-green-800/50 dark:bg-green-800": isListView,
+                "bg-[--backgroundstart-rgb] dark:bg-black": !isListView
               },
             )}
           >
           List
           </div>
           <div className={clsx(
-              "w-16 bg-black",
+              "w-16",
               {
-                "bg-slate-400": !isListView
+                "bg-[--backgroundstart-rgb] dark:bg-black": isListView,
+                "bg-green-800/50 dark:bg-green-800": !isListView
               },
             )}
           >
