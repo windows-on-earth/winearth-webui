@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import clsx from 'clsx';
-import { DEV_API_MOVIES_LIST_PATH, movieProperties } from '@/app/lib/constants';
+import { API_MOVIES_LIST_PATH, movieProperties } from '@/app/lib/constants';
 
 
 export default function MoviesDisplay() {  
@@ -14,7 +14,7 @@ export default function MoviesDisplay() {
   const router = useRouter()
 
   useEffect(() => {
-    fetch(`${DEV_API_MOVIES_LIST_PATH}/`)
+    fetch(`${API_MOVIES_LIST_PATH}/`)
       .then((res) => {
         return res.json()
       })
