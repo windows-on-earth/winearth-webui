@@ -1,4 +1,4 @@
-import MoviesDisplay from "@/app/ui/movies/movies_display.tsx/moviesdisplay"
+import MoviesDisplay from "@/app/ui/movies/moviesdisplay"
 
 export default function Page() {
   return (

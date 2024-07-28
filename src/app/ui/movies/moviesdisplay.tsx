@@ -3,8 +3,9 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import Link from 'next/link';
 import clsx from 'clsx';
-import { API_MOVIES_LIST_PATH, movieProperties } from '@/app/lib/constants';
+import { DEV_API_MOVIES_LIST_PATH, movieProperties } from '@/app/lib/constants';
 
 
 export default function MoviesDisplay() {  
@@ -13,7 +14,7 @@ export default function MoviesDisplay() {
   const router = useRouter()
 
   useEffect(() => {
-    fetch(API_MOVIES_LIST_PATH)
+    fetch(`${DEV_API_MOVIES_LIST_PATH}/`)
       .then((res) => {
         return res.json()
       })
@@ -56,19 +57,19 @@ export default function MoviesDisplay() {
       {!isListView ? 
         <div className="grid grid-cols-5 place-items-center gap-2 m-auto">
           {moviesList.map((item: movieProperties) => (
-            <div className="flex flex-col items-center cursor-pointer" onClick={() => router.push(`movie/${item.movie}`)} key={item.movie}>
-              <Image
+            <Link className="flex flex-col items-center cursor-pointer" href={`/movie/${item.movie}`}  key={item.movie}>
+              <img
                 src={item.thumbnail_512}
                 width={512}
                 height={270}
                 alt={`${item.movie} thumbnail`}
               />
-            </div>        
+            </Link>        
           ))}
         </div> : 
         <div className="flex flex-col justify-between w-full m-auto border-t-4 border-blue-200/25 divide-y-4 divide-blue-200/25">
           {moviesList.map((item: movieProperties) => (
-            <div className="flex items-center gap-96 cursor-pointer p-2" onClick={() => router.push(`movie/${item.movie}`)} key={item.movie}>
+            <Link className="flex items-center gap-96 cursor-pointer p-2" href={`/movie/${item.movie}`} key={item.movie}>
               <Image
                 src={item.thumbnail_512}
                 width={512/3}
@@ -78,7 +79,7 @@ export default function MoviesDisplay() {
               />
               <b key={item.movie} className="block">{convertUnixToDatetime(item.time_stamp)}</b>
 
-            </div>        
+            </Link>        
           ))}
         </div>
       }

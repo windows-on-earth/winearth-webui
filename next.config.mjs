@@ -1,16 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
-  async redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/movies',
-        permanent: false,
-      },
-    ]
-  },
   images: {
+    unoptimized: true, // Set to true when using static exports
+    domains: [
+      'windows-on-earth.sdsc.osn.xsede.org'
+    ],
     remotePatterns: [
       {
         protocol: 'https',
