@@ -32,7 +32,14 @@ export default function MoviesDisplay() {
   }
   const convertUnixToDatetime = (unix: number) => {
     const unixtime = new Date(Number(unix) * 1000)
-    return unixtime.toString()
+    // Extract date components
+    const month = unixtime.toLocaleString('en-US', { month: 'short', timeZone: 'GMT' });
+    const day = unixtime.toLocaleString('en-US', { day: '2-digit', timeZone: 'GMT' });
+    const year = unixtime.toLocaleString('en-US', { year: 'numeric', timeZone: 'GMT' });
+    const hours = unixtime.toLocaleString('en-US', { hour: '2-digit', hour12: false, timeZone: 'GMT' });
+    const minutes = unixtime.toLocaleString('en-US', { minute: '2-digit', timeZone: 'GMT' });
+
+    return `${month} ${day} ${year} ${hours}:${minutes} GMT`
   }
   return (
     <div className="flex flex-col gap-1 relative top-4 w-2/3 m-auto">
