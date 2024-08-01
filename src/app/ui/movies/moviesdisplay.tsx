@@ -2,10 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 import Link from 'next/link';
 import clsx from 'clsx';
-import Button from '@/app/ui/button';
 import { API_MOVIES_LIST_PATH, movieProperties } from '@/app/lib/constants';
 
 
@@ -43,8 +41,6 @@ export default function MoviesDisplay() {
   }
   return (
     <div className="flex flex-col gap-1 relative top-4 w-2/3 m-auto">
-      {/* Back button */}
-      <Button className="text-5xl" onClick={handleBackClick}>&lt;</Button>
       {/* Toggle button between Grid and List views */}
       <div className="border-blue-400 border-2 ml-auto w-fit ">
         <button className="flex" onClick={handleToggleView}>
