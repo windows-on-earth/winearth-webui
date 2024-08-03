@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import clsx from 'clsx';
-import { movieProperties } from '@/app/lib/constants';
+import { API_MOVIES_LIST_PATH, movieProperties } from '@/app/lib/constants';
 
 
 export default function MoviesDisplay() {  

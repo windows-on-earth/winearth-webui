@@ -2,7 +2,7 @@ import SearchBar from '@/app/ui/searchbar'
 import { PathParamsContext } from 'next/dist/shared/lib/hooks-client-context.shared-runtime'
 import MovieElements from '@/app/ui/movie/movie-elements'
 import { useRouter } from 'next/router'
-import { movieProperties } from '@/app/lib/constants'
+import { API_MOVIES_LIST_PATH, movieProperties } from '@/app/lib/constants'
 
 async function getMovieData(movie_title: string) {
   console.log(process.env.API_PATH)
@@ -12,7 +12,7 @@ async function getMovieData(movie_title: string) {
     }
   })
   if (!res.ok) {
-    throw new Error('Failed to fetch data')
+    throw new Error(`Failed to fetch data: ${res.status}`)
   }
   return res.json()
 }

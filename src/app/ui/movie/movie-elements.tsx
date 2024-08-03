@@ -5,6 +5,7 @@ import { Switch } from "../switch"
 import MainVideo from "./main-video"
 import Button from "../button"
 import { movieProperties } from "@/app/lib/constants"
+import { useRouter } from "next/navigation"
 
 interface movieElementProps {
   "data": movieProperties
@@ -13,9 +14,13 @@ interface movieElementProps {
 export default function MovieElements( { data } : movieElementProps) {
   const [isTimeLapse, setTimeLapse] = useState(false)
   const datetime = new Date(data.time_stamp)
+  const router = useRouter()
 
   const handleToggle = () => {
     setTimeLapse(!isTimeLapse)
+  }
+  const handleBackClick = () => {
+    router.back()
   }
 
   const getMovieSource = () => {
@@ -28,6 +33,8 @@ export default function MovieElements( { data } : movieElementProps) {
 
   return (
     <div>
+      {/* Back button */}
+      <Button className="text-5xl" onClick={handleBackClick}>&lt;</Button>
       <MainVideo source={getMovieSource()}/>
       {/* <MainPhoto/> */}
       {/* Media UI elements */}

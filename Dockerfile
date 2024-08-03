@@ -1,5 +1,5 @@
 # Declare base image
-FROM node:lts-alpine3.14
+FROM node:lts-alpine3.20
 # Build Step
 WORKDIR /app
 
@@ -10,4 +10,6 @@ RUN npm install
 
 COPY . .
 
-CMD ["npm", "run", "build"]
+RUN npm run build
+
+CMD ["cp", "-r", "/app/out/.", "/app/dist"]
