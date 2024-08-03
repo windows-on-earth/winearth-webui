@@ -4,7 +4,6 @@ import { useEffect, useState } from "react"
 import { Switch } from "../switch"
 import MainVideo from "./main-video"
 import Button from "../button"
-import Image from "next/image"
 import { movieProperties } from "@/app/lib/constants"
 
 interface movieElementProps {
@@ -57,20 +56,19 @@ export default function MovieElements( { data } : movieElementProps) {
         <div className="flex flex-col gap-1 self-end m-0.5">
           <Button className="inline-block h-16 w-16 bg-white">
             <div className="relative w-3/4 h-3/4 m-auto">
-              <Image
+              <img
                 src="/iconmonstr-link-thin.svg"
                 alt="Share Link Icon"
-                fill={true}
+
               />
             </div>              
           </Button>
             
           <Button className="inline-block h-16 w-16 bg-white">
             <div className="relative w-2/3 h-2/3 m-auto">
-              <Image
+              <img
                 src="/iconmonstr-download-19.svg"
                 alt="Download Link Icon"
-                fill={true}
               />
             </div>
           </Button>
