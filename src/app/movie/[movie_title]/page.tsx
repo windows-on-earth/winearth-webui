@@ -19,7 +19,7 @@ async function getMovieData(movie_title: string) {
 
 export async function generateStaticParams() {
   console.log(process.env.API_PATH)
-  const movies = await fetch(process.env.API_PATH)
+  const movies = await fetch(`${process.env.API_PATH}`)
     .then((res) => res.json())
   return movies.map((movie: movieProperties) => ({
     movie_title: movie.movie,
