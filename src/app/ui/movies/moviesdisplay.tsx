@@ -13,7 +13,8 @@ export default function MoviesDisplay() {
   const router = useRouter()
 
   useEffect(() => {
-    fetch(`${API_MOVIES_LIST_PATH}/`)
+    console.log(`Fetching from ${process.env.NEXT_PUBLIC_API_PATH}/`)
+    fetch(`${process.env.NEXT_PUBLIC_API_PATH}/`)
       .then((res) => {
         return res.json()
       })
