@@ -10,6 +10,7 @@ RUN npm install
 
 COPY . .
 
-RUN npm run build
+# RUN npm run build
 
-CMD ["cp", "-r", "/app/out/.", "/app/dist"]
+# CMD ["cp", "-r", "/app/out/.", "/app/dist"]
+CMD npm run build; cp -r /app/out/. /app/dist
