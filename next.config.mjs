@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  output: 'standalone',
   images: {
-    unoptimized: true, // Set to true when using static exports
+    unoptimized: false, // Set to true when using static exports
     domains: [
       'windows-on-earth.sdsc.osn.xsede.org'
     ],
