@@ -67,7 +67,6 @@ export default function MovieElements( { data } : movieElementProps) {
               <Image
                 src="/iconmonstr-link-thin.svg"
                 alt="Share Link Icon"
-                fill={true}
               />
             </div>              
           </Button>
