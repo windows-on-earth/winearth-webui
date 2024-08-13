@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import clsx from 'clsx';
-import Image from 'next/image';
 import { API_MOVIES_LIST_PATH, movieProperties } from '@/app/lib/constants';
 
 
