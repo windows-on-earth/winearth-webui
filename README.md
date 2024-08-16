@@ -2,15 +2,20 @@
 Front end implementation for Windows on Earth website
 
 ## Development
-After cloning into the repository, `cd` into `win-on-earth-webui/win-on-earth-app/`
-```bash
-cd ./win-on-earth-webui/win-on-earth-app/
-```
+
 Run the dev server:
 ```bash
+npm i
 npm run dev
 ```
-Go to [http://localhost:3000/movie](http://localhost:3000/movies) to see the current progress for the web UI
+
+Go to [http://localhost:3000/](http://localhost:3000/) to see the current progress for the web UI
+
+## Docker
+If you want to build the Docker image, run the following command
+```bash
+docker build -t winearth-webui -f docker/production/Dockerfile .
+```
 
 Versions used:
 - npm v10.7.0
