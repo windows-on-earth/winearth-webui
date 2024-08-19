@@ -4,11 +4,11 @@ import { useEffect, useState } from "react"
 import { Switch } from "../switch"
 import MainVideo from "./main-video"
 import Button from "../button"
-import { movieProperties } from "@/app/lib/constants"
+import { movie } from "@/types/Movie"
 import { useRouter } from "next/navigation"
 
 interface movieElementProps {
-  "data": movieProperties
+  "data": movie
 }
 
 export default function MovieElements( { data } : movieElementProps) {
