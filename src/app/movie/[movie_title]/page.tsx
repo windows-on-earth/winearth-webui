@@ -5,8 +5,8 @@ import { useRouter } from 'next/router'
 import { API_MOVIES_LIST_PATH, movieProperties } from '@/app/lib/constants'
 
 async function getMovieData(movie_title: string) {
-  console.log(process.env.API_PATH)
-  const res = await fetch(`${process.env.API_PATH}/${movie_title}`, {
+  // console.log(`Fetching ${process.env.API_PATH}/${movie_title}/`)
+  const res = await fetch(`${process.env.API_PATH}/${movie_title}/`, {
     headers: {
       'Accept': 'application/json',
     }
@@ -16,15 +16,6 @@ async function getMovieData(movie_title: string) {
   }
   return res.json()
 }
-
-// export async function generateStaticParams() {
-//   console.log(process.env.API_PATH)
-//   const movies = await fetch(`${process.env.API_PATH}`)
-//     .then((res) => res.json())
-//   return movies.map((movie: movieProperties) => ({
-//     movie_title: movie.movie,
-//   }))
-// }
 
 export default async function Page({ params }: { params: { movie_title: string } }) {
   const movieData = await getMovieData(params.movie_title)

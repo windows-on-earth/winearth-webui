@@ -12,9 +12,19 @@ npm run dev
 Go to [http://localhost:3000/](http://localhost:3000/) to see the current progress for the web UI
 
 ## Docker
-If you want to build the Docker image, run the following command
+To build the production image:
 ```bash
-docker build -t winearth-webui -f docker/production/Dockerfile .
+make build-production
+```
+
+To run the production container:
+```bash
+make start-production
+```
+
+To stop the production container:
+```bash
+make stop-production
 ```
 
 Versions used:

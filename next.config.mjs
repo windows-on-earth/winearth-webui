@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',
+  productionBrowserSourceMaps: false, // Set to true when in dev
   images: {
     unoptimized: false, // Set to true when using static exports
     domains: [
