@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import clsx from 'clsx';
 import { API_MOVIES_LIST_PATH } from '@/lib/constants';
 import { movie } from '@/types/Movie';
@@ -73,7 +74,7 @@ export default function MoviesDisplay() {
         <div className="grid grid-cols-5 place-items-center gap-2 m-auto">
           {moviesList.map((item: movie) => (
             <Link className="flex flex-col items-center cursor-pointer" href={`/movie/${item.movie}`}  key={item.movie}>
-              <img
+              <Image
                 src={item.thumbnail_512}
                 width={512}
                 height={270}
@@ -87,7 +88,7 @@ export default function MoviesDisplay() {
           {moviesList.map((item: movie) => (
             // Clicking on any part of the movie item will navigate to the corresponding page
             <Link className="flex items-center gap-96 cursor-pointer p-2" href={`/movie/${item.movie}`} key={item.movie}>
-              <img
+              <Image
                 src={item.thumbnail_512}
                 width={512/3}
                 height={270/3}
