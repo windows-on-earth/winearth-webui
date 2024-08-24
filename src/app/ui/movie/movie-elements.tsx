@@ -4,12 +4,12 @@ import { useEffect, useState } from "react"
 import { Switch } from "../switch"
 import MainVideo from "./main-video"
 import Button from "../button"
-import { movie } from "@/types/Movie"
+import { Movie } from "@/types/Movie"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
 
 interface movieElementProps {
-  "data": movie
+  "data": Movie
 }
 
 export default function MovieElements( { data } : movieElementProps) {

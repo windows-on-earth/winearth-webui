@@ -1,4 +1,4 @@
-export interface movie {
+export interface Movie {
   "movie": string,
   "url": string,
   "url_rt": string,
@@ -16,4 +16,11 @@ export interface movie {
   "iso": string,
   "shutter_speed": string,
   "f_number": string
+}
+
+export interface movieAPIResponse {
+  "next": string,
+  "previous": string,
+  "count": number,
+  "results": Movie[]
 }

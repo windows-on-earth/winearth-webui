@@ -5,32 +5,52 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import clsx from 'clsx';
-import { API_MOVIES_LIST_PATH } from '@/lib/constants';
-import { movie } from '@/types/Movie';
+import { Movie } from '@/types/Movie';
+import { getMovies } from '@/actions/getMovies';
+import { useInView } from 'react-intersection-observer';
 
+type MovieListProps = {
+  initialMovies: Movie[]
+}
 
-export default function MoviesDisplay() {  
-  const [moviesList, setMoviesList] = useState([])
+const NUMBER_OF_MOVIES_TO_FETCH = 10
+
+export default function MoviesDisplay({initialMovies}: MovieListProps) {  
+  const [offset, setOffset] = useState(NUMBER_OF_MOVIES_TO_FETCH)
+  const [movies, setMovies] = useState<Movie[]>(initialMovies)
+  const [hasMoreData, setHasMoreData] = useState(true)
+  const [scrollTrigger, isInView] = useInView()
   const [isListView, setListView] = useState(true)
   const router = useRouter()
 
+  const loadMoreMovies = async() => {
+    if (hasMoreData) {
+      console.log(`Fetching more movies...`)
+      try {
+        const apiMovies = await getMovies(offset, NUMBER_OF_MOVIES_TO_FETCH)
+        if (apiMovies.length == 0) {
+          setHasMoreData(false)
+        }
+        setMovies((prevMovies) => [...prevMovies, ...apiMovies])
+        setOffset((prevOffset) => offset + NUMBER_OF_MOVIES_TO_FETCH)
+      } catch (error) {
+        console.log(error)
+        throw new Error(`an error occurred here: ${error}`)
+      }
+    }
+  }
+
   useEffect(() => {
-    console.log(`Fetching from ${process.env.NEXT_PUBLIC_API_PATH}/`)
-    fetch(`${process.env.NEXT_PUBLIC_API_PATH}/`)
-      .then((res) => {
-        return res.json()
-      })
-      .then((data) => {
-        setMoviesList(data)
-      });
-  }, [])
+    if (isInView && hasMoreData) {
+      loadMoreMovies()
+    }
+  }, [isInView, hasMoreData])
+
 
   const handleToggleView = () => {
     setListView(!isListView)
   }
-  const handleBackClick = () => {
-    router.back()
-  }
+  
   const convertUnixToDatetime = (unix: number) => {
     const unixtime = new Date(Number(unix) * 1000)
     // Extract date components
@@ -72,7 +92,7 @@ export default function MoviesDisplay() {
       {!isListView ? 
         // Grid View
         <div className="grid grid-cols-5 place-items-center gap-2 m-auto">
-          {moviesList.map((item: movie) => (
+          {movies.map((item: Movie) => (
             <Link className="flex flex-col items-center cursor-pointer" href={`/movie/${item.movie}`}  key={item.movie}>
               <Image
                 src={item.thumbnail_512}
@@ -82,10 +102,13 @@ export default function MoviesDisplay() {
               />
             </Link>        
           ))}
+          <div ref={scrollTrigger}>
+            Loading...
+          </div>
         </div> :
         // List view
         <div className="flex flex-col justify-between w-full m-auto border-t-4 border-blue-200/25 divide-y-4 divide-blue-200/25">
-          {moviesList.map((item: movie) => (
+          {movies.map((item: Movie) => (
             // Clicking on any part of the movie item will navigate to the corresponding page
             <Link className="flex items-center gap-96 cursor-pointer p-2" href={`/movie/${item.movie}`} key={item.movie}>
               <Image
@@ -98,6 +121,9 @@ export default function MoviesDisplay() {
               <b key={item.movie} className="block">{convertUnixToDatetime(item.time_stamp)}</b>
             </Link>        
           ))}
+          <div ref={scrollTrigger}>
+            Loading...
+          </div>
         </div>
       }
     </div>
