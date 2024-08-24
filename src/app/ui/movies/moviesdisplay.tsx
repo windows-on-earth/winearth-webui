@@ -25,14 +25,13 @@ export default function MoviesDisplay({initialMovies}: MovieListProps) {
 
   const loadMoreMovies = async() => {
     if (hasMoreData) {
-      console.log(`Fetching more movies...`)
       try {
         const apiMovies = await getMovies(offset, NUMBER_OF_MOVIES_TO_FETCH)
         if (apiMovies.length == 0) {
           setHasMoreData(false)
         }
         setMovies((prevMovies) => [...prevMovies, ...apiMovies])
-        setOffset((prevOffset) => offset + NUMBER_OF_MOVIES_TO_FETCH)
+        setOffset((prevOffset) => prevOffset + NUMBER_OF_MOVIES_TO_FETCH)
       } catch (error) {
         console.log(error)
         throw new Error(`an error occurred here: ${error}`)
@@ -102,9 +101,9 @@ export default function MoviesDisplay({initialMovies}: MovieListProps) {
               />
             </Link>        
           ))}
-          <div ref={scrollTrigger}>
-            Loading...
-          </div>
+          {(hasMoreData && <div ref={scrollTrigger}>Loading...</div>) || (
+            <p> No more posts to load </p>
+          )}
         </div> :
         // List view
         <div className="flex flex-col justify-between w-full m-auto border-t-4 border-blue-200/25 divide-y-4 divide-blue-200/25">
@@ -121,9 +120,9 @@ export default function MoviesDisplay({initialMovies}: MovieListProps) {
               <b key={item.movie} className="block">{convertUnixToDatetime(item.time_stamp)}</b>
             </Link>        
           ))}
-          <div ref={scrollTrigger}>
-            Loading...
-          </div>
+          {(hasMoreData && <div ref={scrollTrigger}>Loading...</div>) || (
+            <p> No more posts to load </p>
+          )}
         </div>
       }
     </div>

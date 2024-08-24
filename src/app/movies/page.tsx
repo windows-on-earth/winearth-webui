@@ -3,6 +3,8 @@ import { getMovies } from "@/actions/getMovies"
 
 const INITIAL_NUMBER_OF_MOVIES = 25
 
+export const revalidate = 0 // No static generation, fetch at runtime
+
 export default async function Page() {
   const initialMovies = await getMovies(0, INITIAL_NUMBER_OF_MOVIES)
   return (
