@@ -10,14 +10,14 @@ import { Movie } from '@/types/Movie';
 import { getMovies } from '@/actions/getMovies';
 import { useInView } from 'react-intersection-observer';
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button} from "@nextui-org/react";
-import { NUMBER_OF_MOVIES_TO_FETCH } from '@/lib/constants';
+import { NUMBER_OF_MOVIES_TO_FETCH, INITIAL_NUMBER_OF_MOVIES } from '@/lib/constants';
 
 type MovieListProps = {
   initialMovies: Movie[]
 }
 
 export default function MoviesDisplay({initialMovies}: MovieListProps) { 
-  const [currOffset, setCurrOffset] = useState(NUMBER_OF_MOVIES_TO_FETCH)
+  const [currOffset, setCurrOffset] = useState(INITIAL_NUMBER_OF_MOVIES)
   const [movies, setMovies] = useState<Movie[]>(initialMovies)
   const [hasMoreData, setHasMoreData] = useState(true)
   const [scrollTrigger, isInView] = useInView()
