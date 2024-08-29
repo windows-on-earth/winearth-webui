@@ -32,3 +32,5 @@ Versions used:
 - node v20.15.0
 - NextJS v14.2.4
 - clsx 2.1.1  
+- @nextui-org/react v2.4.6
+- lodash v4.17.21
