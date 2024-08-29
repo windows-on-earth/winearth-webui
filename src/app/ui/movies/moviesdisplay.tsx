@@ -9,7 +9,7 @@ import { sortBy } from 'lodash';
 import { Movie } from '@/types/Movie';
 import { getMovies } from '@/actions/getMovies';
 import { useInView } from 'react-intersection-observer';
-import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button, DatePicker} from "@nextui-org/react";
+import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button} from "@nextui-org/react";
 import { NUMBER_OF_MOVIES_TO_FETCH } from '@/lib/constants';
 
 type MovieListProps = {
@@ -101,7 +101,6 @@ export default function MoviesDisplay({initialMovies}: MovieListProps) {
             <DropdownItem key="seconds-DESC" className="bg-yellow-500 dark:blue-400">Duration - Descending</DropdownItem>
           </DropdownMenu>
         </Dropdown>
-        <DatePicker></DatePicker>
         {/* View Dropdown */}
         <button className="flex" onClick={handleToggleView}>
           <div className={clsx(
