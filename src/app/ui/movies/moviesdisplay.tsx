@@ -86,7 +86,7 @@ export default function MoviesDisplay({initialMovies}: MovieListProps) {
   return (
     <div className="flex flex-col gap-1 relative top-4 w-2/3 m-auto">
       {/* Interactable buttons*/}
-      <div className="border-blue-400 border-2 flex flex-row ml-auto w-fit ">
+      <div className="flex flex-row gap-2 ml-auto w-fit ">
         {/* Sorting drop down*/}
         <Dropdown>
           <DropdownTrigger>
@@ -102,22 +102,22 @@ export default function MoviesDisplay({initialMovies}: MovieListProps) {
           </DropdownMenu>
         </Dropdown>
         {/* View Dropdown */}
-        <button className="flex" onClick={handleToggleView}>
+        <button className="flex gap-0 border-transparent border-1 rounded-medium overflow-hidden" onClick={handleToggleView}>
           <div className={clsx(
-              "w-16",
+              "flex w-16 justify-center items-center dark:text-black",
               {
-                "bg-green-800/50 dark:bg-green-800": isListView,
-                "bg-[--backgroundstart-rgb] dark:bg-black": !isListView
+                "bg-yellow-500": isListView,
+                "bg-slate-300": !isListView
               },
             )}
           >
           List
           </div>
           <div className={clsx(
-              "w-16",
+              "flex w-16 justify-center items-center dark:text-black",
               {
-                "bg-[--backgroundstart-rgb] dark:bg-black": isListView,
-                "bg-green-800/50 dark:bg-green-800": !isListView
+                "bg-slate-300": isListView,
+                "bg-yellow-500": !isListView
               },
             )}
           >

@@ -10,7 +10,7 @@ export default async function Page() {
   const initialMovies = await getMovies({offset: 0, limit: INITIAL_NUMBER_OF_MOVIES})
   return (
     <div>
-      <b className="text-5xl text-gray-50 m-auto mt-5 block text-center">Movies</b>
+      <b className="text-5xl text-slate-500 dark:text-slate-50 m-auto mt-5 block text-center">Movies</b>
       <MoviesDisplay initialMovies={initialMovies}/>
     </div>
   )

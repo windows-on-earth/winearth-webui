@@ -17,7 +17,7 @@ function Navigation() {
         <div className="flex justify-between items-center w-full mx-16">
           <div className="xl:w-1/3">
             <Link
-              className="block text-2xl max-w-max text-slate-50 font-medium"
+              className="block text-2xl max-w-max text-slate-600 dark:text-slate-50 font-medium"
               href="/"
             >
               Windows On Earth
@@ -27,7 +27,7 @@ function Navigation() {
           <div className="xl:block xl:w-1/3">
             <div className="flex items-center justify-end">
               <Link
-                className="text-slate-50  hover:text-yellow-200 font-bold"
+                className="text-slate-600 dark:text-slate-50 hover:text-yellow-200 font-bold"
                 href="/"
               >
                 Home
