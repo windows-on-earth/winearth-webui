@@ -5,38 +5,60 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import clsx from 'clsx';
+import { sortBy } from 'lodash';
 import { Movie } from '@/types/Movie';
 import { getMovies } from '@/actions/getMovies';
 import { useInView } from 'react-intersection-observer';
+import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button} from "@nextui-org/react";
+import { NUMBER_OF_MOVIES_TO_FETCH, INITIAL_NUMBER_OF_MOVIES } from '@/lib/constants';
 
 type MovieListProps = {
   initialMovies: Movie[]
 }
 
-const NUMBER_OF_MOVIES_TO_FETCH = 10
-
-export default function MoviesDisplay({initialMovies}: MovieListProps) {  
-  const [offset, setOffset] = useState(NUMBER_OF_MOVIES_TO_FETCH)
+export default function MoviesDisplay({initialMovies}: MovieListProps) { 
+  const [currOffset, setCurrOffset] = useState(INITIAL_NUMBER_OF_MOVIES)
   const [movies, setMovies] = useState<Movie[]>(initialMovies)
   const [hasMoreData, setHasMoreData] = useState(true)
   const [scrollTrigger, isInView] = useInView()
   const [isListView, setListView] = useState(true)
   const router = useRouter()
 
-  const loadMoreMovies = async() => {
+  async function loadMoreMovies() {
     if (hasMoreData) {
       try {
-        const apiMovies = await getMovies(offset, NUMBER_OF_MOVIES_TO_FETCH)
+        const apiMovies = await getMovies(
+          {
+            offset: currOffset,
+            limit: NUMBER_OF_MOVIES_TO_FETCH
+          }
+        )
         if (apiMovies.length == 0) {
           setHasMoreData(false)
         }
         setMovies((prevMovies) => [...prevMovies, ...apiMovies])
-        setOffset((prevOffset) => prevOffset + NUMBER_OF_MOVIES_TO_FETCH)
+        setCurrOffset((prevOffset) => prevOffset + NUMBER_OF_MOVIES_TO_FETCH)
       } catch (error) {
         console.log(error)
-        throw new Error(`an error occurred here: ${error}`)
+        throw new Error(`The following error occured: ${error}`)
       }
     }
+  }
+
+  /**
+   * Sorts movies stored in state according to predefined filters and supports
+   *   ascending and descending sorting. Modifies the existing movie list in state.
+   *   Uses lodash's `sortBy()` function as the underlying sorter.
+   * @param filterOrder a string that has a combination of the filter and order to sort by, delimited by "_"
+   */
+  function sortMovies(filterOrder: string) {
+    const [filter, order] = filterOrder.split("-")
+    console.log(`Sorting movies by ${filter} and ordering by ${order}`)
+    let sortedMovies: Movie[] = sortBy(movies, [filter])
+    if (order == "DESC") {
+      sortedMovies = sortedMovies.reverse()
+    }
+    setMovies(sortedMovies)
   }
 
   useEffect(() => {
@@ -63,24 +85,39 @@ export default function MoviesDisplay({initialMovies}: MovieListProps) {
   }
   return (
     <div className="flex flex-col gap-1 relative top-4 w-2/3 m-auto">
-      {/* Toggle button between Grid and List views */}
-      <div className="border-blue-400 border-2 ml-auto w-fit ">
-        <button className="flex" onClick={handleToggleView}>
+      {/* Interactable buttons*/}
+      <div className="flex flex-row gap-2 ml-auto w-fit ">
+        {/* Sorting drop down*/}
+        <Dropdown>
+          <DropdownTrigger>
+            <Button className="bg-yellow-500">
+              Sort
+            </Button>
+          </DropdownTrigger>
+          <DropdownMenu aria-label="Static Actions" className="bg-slate-50" onAction={(key) => sortMovies(key.toString())}>
+            <DropdownItem key="time_stamp-ASC" className="bg-yellow-500">Date - Ascending</DropdownItem>
+            <DropdownItem key="time_stamp-DESC" className="bg-yellow-500">Date - Descending</DropdownItem>
+            <DropdownItem key="seconds-ASC" className="bg-yellow-500">Duration - Ascending</DropdownItem>
+            <DropdownItem key="seconds-DESC" className="bg-yellow-500 dark:blue-400">Duration - Descending</DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+        {/* View Dropdown */}
+        <button className="flex gap-0 border-transparent border-1 rounded-medium overflow-hidden" onClick={handleToggleView}>
           <div className={clsx(
-              "w-16",
+              "flex w-16 justify-center items-center dark:text-black",
               {
-                "bg-green-800/50 dark:bg-green-800": isListView,
-                "bg-[--backgroundstart-rgb] dark:bg-black": !isListView
+                "bg-yellow-500": isListView,
+                "bg-slate-300": !isListView
               },
             )}
           >
           List
           </div>
           <div className={clsx(
-              "w-16",
+              "flex w-16 justify-center items-center dark:text-black",
               {
-                "bg-[--backgroundstart-rgb] dark:bg-black": isListView,
-                "bg-green-800/50 dark:bg-green-800": !isListView
+                "bg-slate-300": isListView,
+                "bg-yellow-500": !isListView
               },
             )}
           >

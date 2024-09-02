@@ -3,6 +3,7 @@ export interface Movie {
   "url": string,
   "url_rt": string,
   "thumbnail_512": string,
+  "iis_path_512": string,
   "iis_mission": string,
   "time_stamp": number,
   "seconds": number,
@@ -23,4 +24,14 @@ export interface movieAPIResponse {
   "previous": string,
   "count": number,
   "results": Movie[]
+}
+
+export interface GetMovieOptions {
+  end_date?: string;
+  limit?: number;
+  max_length?: number;
+  min_length?: number;
+  offset?: number;
+  ordering?: string;
+  start_date?: string;
 }
