@@ -49,7 +49,7 @@ export default function MoviesDisplay({initialMovies}: MovieListProps) {
    * Sorts movies stored in state according to predefined filters and supports
    *   ascending and descending sorting. Modifies the existing movie list in state.
    *   Uses lodash's `sortBy()` function as the underlying sorter.
-   * @param filterOrder a string that has a combination of the filter and order to sort by, delimited by "_"
+   * @param filterOrder a string that has a combination of the filter and order to sort by, delimited by "-"
    */
   function sortMovies(filterOrder: string) {
     const [filter, order] = filterOrder.split("-")
@@ -60,6 +60,16 @@ export default function MoviesDisplay({initialMovies}: MovieListProps) {
     }
     setMovies(sortedMovies)
   }
+
+  function secondsToHms(d: number) {
+    d = Number(d);
+
+    var h = Math.floor(d / 3600);
+    var m = Math.floor(d % 3600 / 60);
+    var s = Math.floor(d % 3600 % 60);
+
+    return ('0' + h).slice(-2) + ":" + ('0' + m).slice(-2) + ":" + ('0' + s).slice(-2);
+}
 
   useEffect(() => {
     if (isInView && hasMoreData) {
@@ -144,9 +154,14 @@ export default function MoviesDisplay({initialMovies}: MovieListProps) {
         </div> :
         // List view
         <div className="flex flex-col justify-between w-full m-auto border-t-4 border-blue-200/25 divide-y-4 divide-blue-200/25">
+          <div className="flex items-center justify-between p-2">
+            <div className="ml-14 font-bold text-lg text-yellow-500">Movie</div>
+            <div className="font-bold text-lg text-yellow-500">Duration (real speed)</div>
+            <div className="mr-14 font-bold text-lg text-yellow-500">Date Captured</div>
+          </div>
           {movies.map((item: Movie) => (
             // Clicking on any part of the movie item will navigate to the corresponding page
-            <Link className="flex items-center gap-96 cursor-pointer p-2" href={`/movie/${item.movie}`} key={item.movie}>
+            <Link className="flex items-center justify-between cursor-pointer p-2" href={`/movie/${item.movie}`} key={item.movie}>
               <Image
                 src={item.thumbnail_512}
                 width={512/3}
@@ -154,7 +169,8 @@ export default function MoviesDisplay({initialMovies}: MovieListProps) {
                 alt={`${item.movie} thumbnail`}
                 className="border-2 border-slate-50/25"
               />
-              <b key={item.movie} className="block">{convertUnixToDatetime(item.time_stamp)}</b>
+              <b key={item.movie} className="">{secondsToHms(item.seconds)}</b>
+              <b key={item.movie} className="block mr-8">{convertUnixToDatetime(item.time_stamp)}</b>
             </Link>        
           ))}
           {(hasMoreData && <div ref={scrollTrigger}>Loading...</div>) || (
