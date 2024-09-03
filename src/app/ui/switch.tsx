@@ -26,9 +26,9 @@ export function Switch({className, checkedStatus, onToggle, ...rest}: SwitchProp
       >
         { checkedStatus ? (
           <span className="inline-block ms-3 text-[1.2vmin] font-medium text-gray-900 dark:text-gray-300"
-          >Real<br/>Time</span> ) : (
+          >Real<br/>Speed</span> ) : (
           <div className="self-center mr-3 inline-block text-[1.2vmin] font-medium text-gray-900 dark:text-gray-300"
-          >Time<br/>Lapse</div>)
+          >Fast</div>)
         }
       </div>
     </label>

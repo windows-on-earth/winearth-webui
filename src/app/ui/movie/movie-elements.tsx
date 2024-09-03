@@ -35,7 +35,7 @@ export default function MovieElements( { data } : movieElementProps) {
   return (
     <div>
       {/* Back button */}
-      <Button className="text-5xl" onClick={handleBackClick}>&lt;</Button>
+      <Button className="text-5xl dark:text-white" onClick={handleBackClick}>&lt;</Button>
       <MainVideo source={getMovieSource()}/>
       {/* <MainPhoto/> */}
       {/* Media UI elements */}
@@ -48,7 +48,7 @@ export default function MovieElements( { data } : movieElementProps) {
             </h2>
           </div>
           <div className="">
-            <h3 className="text-white text-2xl">
+            <h3 className="text-black dark:text-white text-2xl">
               Date Taken: {datetime.toString()}
             </h3>
           </div>
@@ -62,7 +62,7 @@ export default function MovieElements( { data } : movieElementProps) {
         </div>          
         {/* Social */}
         <div className="flex flex-col gap-1 self-end m-0.5">
-          <Button className="inline-block h-16 w-16 bg-white">
+          <Button className="inline-block h-16 w-16 bg-slate-200 dark:bg-white">
             <div className="relative w-3/4 h-3/4 m-auto">
               <Image
                 src="/iconmonstr-link-thin.svg"
@@ -72,7 +72,7 @@ export default function MovieElements( { data } : movieElementProps) {
             </div>              
           </Button>
             
-          <Button className="inline-block h-16 w-16 bg-white">
+          <Button className="inline-block h-16 w-16 bg-slate-200 dark:bg-white">
             <div className="relative w-2/3 h-2/3 m-auto">
               <Image
                 src="/iconmonstr-download-19.svg"
