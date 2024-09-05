@@ -34,9 +34,19 @@ export function convertUnixToDatetime (unix: number, format: string) {
 export function secondsToHms(d: number) {
     d = Number(d);
 
-    var h = Math.floor(d / 3600);
-    var m = Math.floor(d % 3600 / 60);
-    var s = Math.floor(d % 3600 % 60);
+    const h = Math.floor(d / 3600);
+    const m = Math.floor(d % 3600 / 60);
+    const s = Math.floor(d % 3600 % 60);
 
     return ('0' + h).slice(-2) + ":" + ('0' + m).slice(-2) + ":" + ('0' + s).slice(-2);
+}
+
+/**
+ * Formats a CalendarDate string from YYYY-MM-DD to MM/DD/YYYY
+ * @param date string representing a CalendarDate
+ * @returns date in MM/DD/YY format
+ */
+export function calendarDateToMMDDYYYY(date: string) {
+    const [year, month, day] = date.split("-") 
+    return `${month}/${day}/${year}`
 }

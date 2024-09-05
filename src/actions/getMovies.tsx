@@ -1,8 +1,7 @@
 //actions/getMovies.ts
 "use server"
-import { movieAPIResponse } from '@/types/Movie'
+import { movieAPIResponse, GetMovieOptions } from '@/types/Movie'
 import { handleError } from '@/utils/handleResponseError'
-import { start } from 'repl'
 
 /**
  * Server side fetch function for movies using the Winearth API
@@ -15,16 +14,17 @@ import { start } from 'repl'
  * @param start_date Set what is the earliest date a returned movie can have. Defaults to "01/01/2000"
  * @returns Array of Movie type objects
  */
-export async function getMovies({
-  end_date = "01/01/2100",
-  limit = Number.MAX_SAFE_INTEGER,
-  max_length = Number.MAX_SAFE_INTEGER,
-  min_length = 0,
-  offset = 0,
-  ordering = "timestamp",
-  start_date = "01/01/2000",
-})
+export async function getMovies(
   {
+    end_date = "01/01/2100",
+    limit = Number.MAX_SAFE_INTEGER,
+    max_length = Number.MAX_SAFE_INTEGER,
+    min_length = 0,
+    offset = 0,
+    ordering = "timestamp",
+    start_date = "01/01/2000",
+  } : GetMovieOptions
+){
   const url = `${process.env.API_PATH}/?` +
   `end_date=${end_date}&` +
   `limit=${limit}&` +
