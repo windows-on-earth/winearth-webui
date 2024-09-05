@@ -73,7 +73,7 @@ export default function MoviesDisplay({initialMovies, options}: MovieListProps) 
       try {
         const apiMovies = await getMovies(
           {
-            offset: currOffset,
+            offset: 0,
             limit: NUMBER_OF_MOVIES_TO_FETCH,
             start_date: options? options.start_date : "",
             end_date: options? options.end_date : "",
@@ -85,7 +85,7 @@ export default function MoviesDisplay({initialMovies, options}: MovieListProps) 
           setHasMoreData(false)
         }
         setMovies(apiMovies)
-        setCurrOffset(0)
+        setCurrOffset(Math.min(NUMBER_OF_MOVIES_TO_FETCH, apiMovies.length))
       } catch (error) {
         console.log(error)
         throw new Error(`The following error occured: ${error}`)
