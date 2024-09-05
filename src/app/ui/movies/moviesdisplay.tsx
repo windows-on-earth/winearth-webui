@@ -12,12 +12,14 @@ import { useInView } from 'react-intersection-observer';
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button} from "@nextui-org/react";
 import { NUMBER_OF_MOVIES_TO_FETCH, INITIAL_NUMBER_OF_MOVIES } from '@/lib/constants';
 import { convertUnixToDatetime, secondsToHms } from '@/utils/time';
+import { SearchFilterOptions } from '@/types/Search';
 
 type MovieListProps = {
   initialMovies: Movie[]
+  options?: SearchFilterOptions
 }
 
-export default function MoviesDisplay({initialMovies}: MovieListProps) { 
+export default function MoviesDisplay({initialMovies, options}: MovieListProps) { 
   const [currOffset, setCurrOffset] = useState(INITIAL_NUMBER_OF_MOVIES)
   const [movies, setMovies] = useState<Movie[]>(initialMovies)
   const [hasMoreData, setHasMoreData] = useState(true)
@@ -31,7 +33,11 @@ export default function MoviesDisplay({initialMovies}: MovieListProps) {
         const apiMovies = await getMovies(
           {
             offset: currOffset,
-            limit: NUMBER_OF_MOVIES_TO_FETCH
+            limit: NUMBER_OF_MOVIES_TO_FETCH,
+            start_date: options? options.start_date : "",
+            end_date: options? options.end_date : "",
+            min_length: options? options.min_length : 0,
+            max_length: options? options.max_length : Number.MAX_SAFE_INTEGER
           }
         )
         if (apiMovies.length == 0) {
@@ -62,7 +68,31 @@ export default function MoviesDisplay({initialMovies}: MovieListProps) {
     setMovies(sortedMovies)
   }
 
-  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const apiMovies = await getMovies(
+          {
+            offset: currOffset,
+            limit: NUMBER_OF_MOVIES_TO_FETCH,
+            start_date: options? options.start_date : "",
+            end_date: options? options.end_date : "",
+            min_length: options? options.min_length : 0,
+            max_length: options? options.max_length : Number.MAX_SAFE_INTEGER
+          }
+        )
+        if (apiMovies.length == 0) {
+          setHasMoreData(false)
+        }
+        setMovies(apiMovies)
+        setCurrOffset(0)
+      } catch (error) {
+        console.log(error)
+        throw new Error(`The following error occured: ${error}`)
+      }
+    }
+    fetchData()
+  }, [options])
 
   useEffect(() => {
     if (isInView && hasMoreData) {

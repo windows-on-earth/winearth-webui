@@ -2,12 +2,18 @@
 
 import { Button } from "@nextui-org/react"
 import { useState } from "react"
+import dynamic from "next/dynamic"
 import MyDateRangePicker from "@/app/ui/search/myDateRangePicker"
 import { calendarDateToMMDDYYYY } from "@/utils/time"
+import { SearchComponentProps, SearchFilterOptions } from "@/types/Search"
+import { Movie } from "@/types/Movie"
 
-export default function SearchComponents() {
-    const [startDate, setStartDate] = useState<string | null>("01/01/2000")
-    const [endDate, setEndDate] = useState<string | null>("12/31/2099")
+const MoviesDisplay = dynamic(() => import("@/app/ui/movies/moviesdisplay"), {ssr: false} )
+
+export default function SearchComponents({initialMovies}: SearchComponentProps) {
+    const [startDate, setStartDate] = useState<string | undefined>("01/01/2000")
+    const [endDate, setEndDate] = useState<string | undefined>("12/31/2099")
+    const [options, setOptions] = useState<SearchFilterOptions>({})
 
     const handleStartDate = (value: string) => {
         setStartDate(calendarDateToMMDDYYYY(value))
@@ -19,6 +25,12 @@ export default function SearchComponents() {
     const handleClick = () => {
         console.log(`Start Date: ${startDate}`)
         console.log(`End Date: ${endDate}`)
+        setOptions({
+            ...options,
+            start_date: startDate,
+            end_date: endDate
+        })
+
     }
 
     return (
@@ -28,13 +40,16 @@ export default function SearchComponents() {
                 className="self-end"
             >Search
             </Button>
-            <p className="m-auto mb-4">Please select a start date and end date for when movies where shot.</p>
+            <p className="m-auto mb-4 text-center">
+                Please select a start date and end date for when movies where shot. <br/>
+                Movies on the home page will reflect the results here.
+            </p>
             <MyDateRangePicker
                 onStartDate={handleStartDate}
                 onEndDate={handleEndDate}
                 className="w-1/2 m-auto"
             />
-
+            <MoviesDisplay initialMovies={initialMovies} options={options}/>
         </div>
         
     )

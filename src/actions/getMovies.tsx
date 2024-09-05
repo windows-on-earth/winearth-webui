@@ -21,7 +21,6 @@ export async function getMovies(
     max_length = Number.MAX_SAFE_INTEGER,
     min_length = 0,
     offset = 0,
-    ordering = "timestamp",
     start_date = "01/01/2000",
   } : GetMovieOptions
 ){
@@ -31,7 +30,6 @@ export async function getMovies(
   `max_length=${max_length}&` +
   `min_length=${min_length}&` +
   `offset=${offset}&` +
-  `ordering=${ordering}&` +
   `start_date=${start_date}`
   try {
     const response = await fetch(url)
