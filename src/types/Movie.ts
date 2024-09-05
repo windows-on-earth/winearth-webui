@@ -32,6 +32,5 @@ export interface GetMovieOptions {
   max_length?: number;
   min_length?: number;
   offset?: number;
-  ordering?: string;
   start_date?: string;
 }

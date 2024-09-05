@@ -14,8 +14,8 @@ function Navigation() {
   return (
     <header className="bg-yellow-500 block text-white">
       <nav className="flex justify-between p-6 px-4">
-        <div className="flex justify-between items-center w-full mx-16">
-          <div className="xl:w-1/3">
+        <div className="flex items-center justify-between w-full mx-16">
+          <div className="xl:w-1/3 basis-1/6">
             <Link
               className="block text-2xl max-w-max text-slate-600 dark:text-slate-50 font-medium"
               href="/"
@@ -23,14 +23,19 @@ function Navigation() {
               Windows On Earth
             </Link>
           </div>
-
-          <div className="xl:block xl:w-1/3">
-            <div className="flex items-center justify-end">
+          <div className="xl:block xl:w-1/3 justify-self-end">
+            <div className="flex items-center justify-end gap-2">
               <Link
                 className="text-slate-600 dark:text-slate-50 hover:text-yellow-200 font-bold"
                 href="/"
               >
                 Home
+              </Link>
+              <Link
+                className="text-slate-600 dark:text-slate-50 hover:text-yellow-200 font-bold"
+                href="/search"
+              >
+                Search
               </Link>
             </div>
           </div>
