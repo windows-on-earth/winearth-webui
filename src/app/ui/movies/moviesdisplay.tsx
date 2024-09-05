@@ -121,7 +121,7 @@ export default function MoviesDisplay({initialMovies}: MovieListProps) {
         // Grid View
         <div className="grid grid-cols-5 place-items-center gap-2 m-auto">
           {movies.map((item: Movie) => (
-            <Link className="flex flex-col items-center cursor-pointer" href={`/movie/${item.movie}`}  key={item.movie}>
+            <Link className="flex flex-col items-center cursor-pointer" href={`/movie/${item.movie}`}  key={`${item.movie}_grid`}>
               <Image
                 src={item.thumbnail_512}
                 width={512}
@@ -143,7 +143,7 @@ export default function MoviesDisplay({initialMovies}: MovieListProps) {
           </div>
           {movies.map((item: Movie) => (
             // Clicking on any part of the movie item will navigate to the corresponding page
-            <Link className="flex items-center justify-between cursor-pointer p-2" href={`/movie/${item.movie}`} key={item.movie}>
+            <Link className="flex items-center justify-between cursor-pointer p-2" href={`/movie/${item.movie}`} key={`${item.movie}_list`}>
               <Image
                 src={item.thumbnail_512}
                 width={512/3}
@@ -151,8 +151,8 @@ export default function MoviesDisplay({initialMovies}: MovieListProps) {
                 alt={`${item.movie} thumbnail`}
                 className="border-2 border-slate-50/25"
               />
-              <b key={item.movie} className="">{secondsToHms(item.seconds)}</b>
-              <b key={item.movie} className="block mr-8">{convertUnixToDatetime(item.time_stamp, "Datetime")}</b>
+              <b className="">{secondsToHms(item.seconds)}</b>
+              <b className="block mr-8">{convertUnixToDatetime(item.time_stamp, "Datetime")}</b>
             </Link>        
           ))}
           {(hasMoreData && <div ref={scrollTrigger}>Loading...</div>) || (
