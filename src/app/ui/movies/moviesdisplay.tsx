@@ -11,6 +11,7 @@ import { getMovies } from '@/actions/getMovies';
 import { useInView } from 'react-intersection-observer';
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button} from "@nextui-org/react";
 import { NUMBER_OF_MOVIES_TO_FETCH, INITIAL_NUMBER_OF_MOVIES } from '@/lib/constants';
+import { convertUnixToDatetime, secondsToHms } from '@/utils/time';
 
 type MovieListProps = {
   initialMovies: Movie[]
@@ -61,15 +62,7 @@ export default function MoviesDisplay({initialMovies}: MovieListProps) {
     setMovies(sortedMovies)
   }
 
-  function secondsToHms(d: number) {
-    d = Number(d);
-
-    var h = Math.floor(d / 3600);
-    var m = Math.floor(d % 3600 / 60);
-    var s = Math.floor(d % 3600 % 60);
-
-    return ('0' + h).slice(-2) + ":" + ('0' + m).slice(-2) + ":" + ('0' + s).slice(-2);
-}
+  
 
   useEffect(() => {
     if (isInView && hasMoreData) {
@@ -81,18 +74,7 @@ export default function MoviesDisplay({initialMovies}: MovieListProps) {
   const handleToggleView = () => {
     setListView(!isListView)
   }
-  
-  const convertUnixToDatetime = (unix: number) => {
-    const unixtime = new Date(Number(unix) * 1000)
-    // Extract date components
-    const month = unixtime.toLocaleString('en-US', { month: 'short', timeZone: 'GMT' });
-    const day = unixtime.toLocaleString('en-US', { day: '2-digit', timeZone: 'GMT' });
-    const year = unixtime.toLocaleString('en-US', { year: 'numeric', timeZone: 'GMT' });
-    const hours = unixtime.toLocaleString('en-US', { hour: '2-digit', hour12: false, timeZone: 'GMT' });
-    const minutes = unixtime.toLocaleString('en-US', { minute: '2-digit', timeZone: 'GMT' });
 
-    return `${month} ${day} ${year} ${hours}:${minutes} GMT`
-  }
   return (
     <div className="flex flex-col gap-1 relative top-4 w-2/3 m-auto">
       {/* Interactable buttons*/}
@@ -170,7 +152,7 @@ export default function MoviesDisplay({initialMovies}: MovieListProps) {
                 className="border-2 border-slate-50/25"
               />
               <b key={item.movie} className="">{secondsToHms(item.seconds)}</b>
-              <b key={item.movie} className="block mr-8">{convertUnixToDatetime(item.time_stamp)}</b>
+              <b key={item.movie} className="block mr-8">{convertUnixToDatetime(item.time_stamp, "Datetime")}</b>
             </Link>        
           ))}
           {(hasMoreData && <div ref={scrollTrigger}>Loading...</div>) || (
