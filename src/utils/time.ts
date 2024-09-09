@@ -50,3 +50,12 @@ export function calendarDateToMMDDYYYY(date: string) {
     const [year, month, day] = date.split("-") 
     return `${month}/${day}/${year}`
 }
+
+/**
+ * Rounds a number to the nearest half (0.5). Currently only used for rounding FPS.
+ * @param num number to be rounded to the nearest half e.g. 1.0, 1.5, 2.0, etc
+ * @returns rounded number to the half
+ */
+export function roundHalf(num: number) {
+    return Math.round(num*2)/2
+}
