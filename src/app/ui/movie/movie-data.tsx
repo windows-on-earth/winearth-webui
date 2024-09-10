@@ -5,6 +5,7 @@ interface movieDataProps {
     movie: Movie
   }
 export default function MovieData({movie}: movieDataProps) {
+    const f_stop = JSON.parse(movie.f_number)[0]/JSON.parse(movie.f_number)[1]
     return (
         <div className="flex flex-col bg-neutral-400 h-full">
             <h2 className="text-yellow-300 text-2xl font-bold text-center">Movie Data</h2>
@@ -29,7 +30,7 @@ export default function MovieData({movie}: movieDataProps) {
                     <p>{movie.lens ? movie.lens : "N/A"}</p>
                     <p>{movie.iso ? movie.iso : "N/A"}</p>
                     <p>{movie.shutter_speed ? movie.shutter_speed : "N/A"}</p>
-                    <p>{movie.f_number ? movie.f_number : "N/A"}</p>
+                    <p>{movie.f_number ? f_stop : "N/A"}</p>
                     <p className="hidden">{roundHalf(movie.images/movie.seconds)}</p> {/* Hidden until further notice */}
                     <p>{secondsToHms(movie.seconds)}</p>
                 </div>

@@ -18,15 +18,16 @@ export function convertUnixToDatetime (unix: number, format: string) {
     const dateTime = unixtime.toString()
     const [doTW, month, day, year, time, timeZoneGMT] = dateTime.split(" ")
     const timeZone = `(${dateTime.split("(")[1]}`
+    const localTimeZone = unixtime.toLocaleTimeString('en-us', {timeZoneName:'short'}).split(' ')[2]
     switch (format) {
         case "Date": {
             return `${doTW} ${month} ${day}, ${year}`
         }
         case "Time": {
-            return `${time} ${timeZoneGMT} \b ${timeZone}`
+            return `${time} ${localTimeZone}`
         }
         case "Datetime": {
-            return `${doTW} ${month} ${day} ${year} ${timeZone.split(":").slice(0,2)} ${timeZoneGMT}`
+            return `${month} ${day} ${year} ${time.split(":").slice(0,2).join(":")} ${localTimeZone}`
         }
         default: {
             return "Invalid format type. Choose between 'Date', 'Time', or 'Datetime'."
