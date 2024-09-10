@@ -106,7 +106,7 @@ export default function MoviesDisplay({initialMovies, options}: MovieListProps) 
   }
 
   return (
-    <div className="flex flex-col gap-1 relative top-4 w-2/3 m-auto">
+    <div className="flex flex-col gap-1 relative top-4 w-5/6 m-auto">
       {/* Interactable buttons*/}
       <div className="flex flex-row gap-2 ml-auto w-fit ">
         {/* Sorting drop down*/}
@@ -152,12 +152,29 @@ export default function MoviesDisplay({initialMovies, options}: MovieListProps) 
         <div className="grid grid-cols-5 place-items-center gap-2 m-auto">
           {movies.map((item: Movie) => (
             <Link className="flex flex-col items-center cursor-pointer" href={`/movie/${item.movie}`}  key={`${item.movie}_grid`}>
-              <Image
-                src={item.thumbnail_512}
-                width={512}
-                height={270}
-                alt={`${item.movie} thumbnail`}
-              />
+              <div className="flex gap-1 justify-between">
+                <div className="relative h-full w-1/2 hidden">
+                  <Image
+                    src={item.iis_path_512}
+                    width={512/3}
+                    height={366/3}
+                    alt={`${item.movie} IIS path`}
+                    className="basis-1/2 border-2 border-slate-50/25" 
+                  />
+                </div>
+                <div className="relative h-full w-full">
+                  <Image
+                    src={item.thumbnail_512}
+                    width={512}
+                    height={270}
+                    alt={`${item.movie} thumbnail`}
+                    className="basis-1/2"
+                  />
+                </div>
+                
+                
+              </div>
+              
             </Link>        
           ))}
           {(hasMoreData && <div ref={scrollTrigger}>Loading...</div>) || (
@@ -167,20 +184,32 @@ export default function MoviesDisplay({initialMovies, options}: MovieListProps) 
         // List view
         <div className="flex flex-col justify-between w-full m-auto border-t-4 border-blue-200/25 divide-y-4 divide-blue-200/25">
           <div className="flex items-center justify-between p-2">
-            <div className="ml-14 font-bold text-lg text-yellow-500">Movie</div>
-            <div className="ml-24 font-bold text-lg text-yellow-500">Date Captured</div>
+            <div className="ml-14 basis-1/3 font-bold text-lg text-yellow-500">Movie</div>
+            <div className="ml-12 font-bold text-lg text-yellow-500">Date Captured</div>
             <div className="mr-2 font-bold text-lg text-yellow-500">Duration (real speed)</div>
           </div>
           {movies.map((item: Movie) => (
             // Clicking on any part of the movie item will navigate to the corresponding page
             <Link className="flex items-center justify-between cursor-pointer p-2" href={`/movie/${item.movie}`} key={`${item.movie}_list`}>
-              <Image
-                src={item.thumbnail_512}
-                width={512/3}
-                height={270/3}
-                alt={`${item.movie} thumbnail`}
-                className="border-2 border-slate-50/25"
-              />
+              <div className="flex gap-1">
+                <div className="relative w-[270px] h-[366/3px]">
+                  <Image
+                    src={item.iis_path_512}
+                    // width={512/3}
+                    // height={366/3}
+                    fill
+                    alt={`${item.movie} IIS path`}
+                    className="border-2 border-slate-50/25" 
+                  />
+                </div>
+                <Image
+                  src={item.thumbnail_512}
+                  width={512/2}
+                  height={270/2}
+                  alt={`${item.movie} thumbnail`}
+                  className="border-2 border-slate-50/25"
+                />
+              </div>
               <b className="block">{convertUnixToDatetime(item.time_stamp, "Datetime")}</b>
               <b className="mr-16">{secondsToHms(item.seconds)}</b>
             </Link>        
