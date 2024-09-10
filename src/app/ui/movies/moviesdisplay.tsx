@@ -168,8 +168,8 @@ export default function MoviesDisplay({initialMovies, options}: MovieListProps) 
         <div className="flex flex-col justify-between w-full m-auto border-t-4 border-blue-200/25 divide-y-4 divide-blue-200/25">
           <div className="flex items-center justify-between p-2">
             <div className="ml-14 font-bold text-lg text-yellow-500">Movie</div>
-            <div className="font-bold text-lg text-yellow-500">Duration (real speed)</div>
-            <div className="mr-14 font-bold text-lg text-yellow-500">Date Captured</div>
+            <div className="ml-24 font-bold text-lg text-yellow-500">Date Captured</div>
+            <div className="mr-2 font-bold text-lg text-yellow-500">Duration (real speed)</div>
           </div>
           {movies.map((item: Movie) => (
             // Clicking on any part of the movie item will navigate to the corresponding page
@@ -181,8 +181,8 @@ export default function MoviesDisplay({initialMovies, options}: MovieListProps) 
                 alt={`${item.movie} thumbnail`}
                 className="border-2 border-slate-50/25"
               />
-              <b className="">{secondsToHms(item.seconds)}</b>
-              <b className="block mr-8">{convertUnixToDatetime(item.time_stamp, "Datetime")}</b>
+              <b className="block">{convertUnixToDatetime(item.time_stamp, "Datetime")}</b>
+              <b className="mr-16">{secondsToHms(item.seconds)}</b>
             </Link>        
           ))}
           {(hasMoreData && <div ref={scrollTrigger}>Loading...</div>) || (
