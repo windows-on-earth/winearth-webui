@@ -18,7 +18,7 @@ export default function MovieData({movie}: movieDataProps) {
                     <p>ISO: </p>
                     <p>Shutter:</p>
                     <p>F-stop:</p>
-                    <p>FPS:</p>
+                    <p className="hidden">FPS:</p> {/* Hidden until further notice */}
                     <p>Full length:</p>
                 </div>
                 <div className="flex flex-col basis-1/2 justify-around">
@@ -30,7 +30,7 @@ export default function MovieData({movie}: movieDataProps) {
                     <p>{movie.iso ? movie.iso : "N/A"}</p>
                     <p>{movie.shutter_speed ? movie.shutter_speed : "N/A"}</p>
                     <p>{movie.f_number ? movie.f_number : "N/A"}</p>
-                    <p>{roundHalf(movie.images/movie.seconds)}</p>
+                    <p className="hidden">{roundHalf(movie.images/movie.seconds)}</p> {/* Hidden until further notice */}
                     <p>{secondsToHms(movie.seconds)}</p>
                 </div>
             </div>

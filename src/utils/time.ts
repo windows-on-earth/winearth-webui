@@ -8,22 +8,25 @@
 export function convertUnixToDatetime (unix: number, format: string) {
     const unixtime = new Date(Number(unix) * 1000)
     // Extract date components
-    const month = unixtime.toLocaleString('en-US', { month: 'short', timeZone: 'GMT' });
-    const day = unixtime.toLocaleString('en-US', { day: '2-digit', timeZone: 'GMT' });
-    const year = unixtime.toLocaleString('en-US', { year: 'numeric', timeZone: 'GMT' });
-    const hours = unixtime.toLocaleString('en-US', { hour: '2-digit', hour12: false, timeZone: 'GMT' });
-    const minutes = unixtime.toLocaleString('en-US', { minute: '2-digit', timeZone: 'GMT' });
-    const seconds = unixtime.toLocaleString('en-US', { second: '2-digit', timeZone: 'GMT' });
+    // const month = unixtime.toLocaleString('en-US', { month: 'short', timeZone: 'GMT' });
+    // const day = unixtime.toLocaleString('en-US', { day: '2-digit', timeZone: 'GMT' });
+    // const year = unixtime.toLocaleString('en-US', { year: 'numeric', timeZone: 'GMT' });
+    // const hours = unixtime.toLocaleString('en-US', { hour: '2-digit', hour12: false, timeZone: 'GMT' });
+    // const minutes = unixtime.toLocaleString('en-US', { minute: '2-digit', timeZone: 'GMT' });
+    // const seconds = unixtime.toLocaleString('en-US', { second: '2-digit', timeZone: 'GMT' });
 
+    const dateTime = unixtime.toString()
+    const [doTW, month, day, year, time, timeZoneGMT] = dateTime.split(" ")
+    const timeZone = `(${dateTime.split("(")[1]}`
     switch (format) {
         case "Date": {
-            return `${month} ${day}, ${year}`
+            return `${doTW} ${month} ${day}, ${year}`
         }
         case "Time": {
-            return `${hours}:${minutes}:${seconds} GMT`
+            return `${time} ${timeZoneGMT} \b ${timeZone}`
         }
         case "Datetime": {
-            return `${month} ${day} ${year} ${hours}:${minutes} GMT`
+            return `${doTW} ${month} ${day} ${year} ${timeZone.split(":").slice(0,2)} ${timeZoneGMT}`
         }
         default: {
             return "Invalid format type. Choose between 'Date', 'Time', or 'Datetime'."
