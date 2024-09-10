@@ -8,22 +8,26 @@
 export function convertUnixToDatetime (unix: number, format: string) {
     const unixtime = new Date(Number(unix) * 1000)
     // Extract date components
-    const month = unixtime.toLocaleString('en-US', { month: 'short', timeZone: 'GMT' });
-    const day = unixtime.toLocaleString('en-US', { day: '2-digit', timeZone: 'GMT' });
-    const year = unixtime.toLocaleString('en-US', { year: 'numeric', timeZone: 'GMT' });
-    const hours = unixtime.toLocaleString('en-US', { hour: '2-digit', hour12: false, timeZone: 'GMT' });
-    const minutes = unixtime.toLocaleString('en-US', { minute: '2-digit', timeZone: 'GMT' });
-    const seconds = unixtime.toLocaleString('en-US', { second: '2-digit', timeZone: 'GMT' });
+    // const month = unixtime.toLocaleString('en-US', { month: 'short', timeZone: 'GMT' });
+    // const day = unixtime.toLocaleString('en-US', { day: '2-digit', timeZone: 'GMT' });
+    // const year = unixtime.toLocaleString('en-US', { year: 'numeric', timeZone: 'GMT' });
+    // const hours = unixtime.toLocaleString('en-US', { hour: '2-digit', hour12: false, timeZone: 'GMT' });
+    // const minutes = unixtime.toLocaleString('en-US', { minute: '2-digit', timeZone: 'GMT' });
+    // const seconds = unixtime.toLocaleString('en-US', { second: '2-digit', timeZone: 'GMT' });
 
+    const dateTime = unixtime.toString()
+    const [doTW, month, day, year, time, timeZoneGMT] = dateTime.split(" ")
+    const timeZone = `(${dateTime.split("(")[1]}`
+    const localTimeZone = unixtime.toLocaleTimeString('en-us', {timeZoneName:'short'}).split(' ')[2]
     switch (format) {
         case "Date": {
-            return `${month} ${day}, ${year}`
+            return `${doTW} ${month} ${day}, ${year}`
         }
         case "Time": {
-            return `${hours}:${minutes}:${seconds} GMT`
+            return `${time} ${localTimeZone}`
         }
         case "Datetime": {
-            return `${month} ${day} ${year} ${hours}:${minutes} GMT`
+            return `${month} ${day} ${year} ${time.split(":").slice(0,2).join(":")} ${localTimeZone}`
         }
         default: {
             return "Invalid format type. Choose between 'Date', 'Time', or 'Datetime'."
@@ -49,4 +53,13 @@ export function secondsToHms(d: number) {
 export function calendarDateToMMDDYYYY(date: string) {
     const [year, month, day] = date.split("-") 
     return `${month}/${day}/${year}`
+}
+
+/**
+ * Rounds a number to the nearest half (0.5). Currently only used for rounding FPS.
+ * @param num number to be rounded to the nearest half e.g. 1.0, 1.5, 2.0, etc
+ * @returns rounded number to the half
+ */
+export function roundHalf(num: number) {
+    return Math.round(num*2)/2
 }

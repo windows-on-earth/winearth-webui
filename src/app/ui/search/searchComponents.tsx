@@ -6,7 +6,6 @@ import dynamic from "next/dynamic"
 import MyDateRangePicker from "@/app/ui/search/myDateRangePicker"
 import { calendarDateToMMDDYYYY } from "@/utils/time"
 import { SearchComponentProps, SearchFilterOptions } from "@/types/Search"
-import { Movie } from "@/types/Movie"
 import DurationFilter from "./durationFilter"
 
 const MoviesDisplay = dynamic(() => import("@/app/ui/movies/moviesdisplay"), {ssr: false} )

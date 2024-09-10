@@ -14,7 +14,7 @@ interface movieElementProps {
 
 export default function MovieElements( { data } : movieElementProps) {
   const [isTimeLapse, setTimeLapse] = useState(false)
-  const datetime = new Date(data.time_stamp)
+  const datetime = new Date(Number(data.time_stamp)*1000)
   const router = useRouter()
 
   const handleToggle = () => {

@@ -22,5 +22,6 @@ const config: Config = {
       addCommonColors: true,
     })
   ],
+  darkMode: 'selector',
 };
 export default config;
