@@ -1,9 +1,10 @@
 'use client'
 
-import { useEffect, useState } from "react"
-import { Switch } from "../switch"
-import MainVideo from "./main-video"
-import Button from "../button"
+import { Suspense, useEffect, useState } from "react"
+import { Switch } from "@/app/ui/switch"
+import MainVideo from "@/app/ui/movie/main-video"
+import Button from "@/app/ui/button"
+import Loading from "@/app/movie/[movie_title]/loading"
 import { Movie } from "@/types/Movie"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
@@ -14,29 +15,27 @@ interface movieElementProps {
 
 export default function MovieElements( { data } : movieElementProps) {
   const [isTimeLapse, setTimeLapse] = useState(false)
+  const [videoSource, setVideoSource] = useState(data.url)
   const datetime = new Date(Number(data.time_stamp)*1000)
   const router = useRouter()
 
   const handleToggle = () => {
     setTimeLapse(!isTimeLapse)
+    setVideoSource((prevSource) =>
+      prevSource === data.url ? data.url_rt : data.url
+    )
   }
   const handleBackClick = () => {
     router.back()
   }
 
-  const getMovieSource = () => {
-    if (isTimeLapse) {
-      return data.url_rt
-    } else {
-      return data.url
-    }
-  }
-
   return (
-    <div>
+    <div className="flex flex-col">
       {/* Back button */}
       <Button className="text-5xl dark:text-white" onClick={handleBackClick}>&lt;</Button>
-      <MainVideo source={getMovieSource()}/>
+      <Suspense fallback={<Loading />}>
+        <MainVideo source={videoSource}/>
+      </Suspense>
       {/* <MainPhoto/> */}
       {/* Media UI elements */}
       <div className="flex flex-row justify-between">
