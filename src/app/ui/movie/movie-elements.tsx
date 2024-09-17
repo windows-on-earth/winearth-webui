@@ -20,7 +20,7 @@ export default function MovieElements( { data } : movieElementProps) {
   const [videoSource, setVideoSource] = useState(data.url)
   const datetime = new Date(Number(data.time_stamp)*1000)
   const router = useRouter()
-  const pathName = usePathname()
+  const fullUrl = window.location.toString()
 
   const handleToggle = () => {
     setTimeLapse(!isTimeLapse)
@@ -82,7 +82,7 @@ export default function MovieElements( { data } : movieElementProps) {
         </div>          
         {/* Social */}
         <div className="flex flex-col gap-1 self-end m-0.5">
-          <SharingPopover pathName={pathName}/>            
+          <SharingPopover pathName={fullUrl}/>            
           <Button
             className="w-16 min-w-16 h-16 rounded-full bg-slate-200 p-0 flex items-center justify-center">
             <div className="relative w-3/5 h-3/5 rounded-full m-auto">
