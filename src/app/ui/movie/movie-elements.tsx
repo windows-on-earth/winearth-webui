@@ -20,7 +20,7 @@ export default function MovieElements( { data } : movieElementProps) {
   const [videoSource, setVideoSource] = useState(data.url)
   const datetime = new Date(Number(data.time_stamp)*1000)
   const router = useRouter()
-  const fullUrl = window.location.toString()
+  const fullUrl = typeof window !== 'undefined' && window.location ? window.location.toString() : ''
 
   const handleToggle = () => {
     setTimeLapse(!isTimeLapse)
