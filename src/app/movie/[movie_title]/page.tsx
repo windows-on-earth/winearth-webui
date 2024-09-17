@@ -1,8 +1,24 @@
 import SearchBar from '@/app/ui/searchbar'
 import MovieElements from '@/app/ui/movie/movie-elements'
-import { useRouter } from 'next/router'
+import { headers } from 'next/headers'
 import { getMovieData } from '@/actions/getMovieData'
 import MovieData from '@/app/ui/movie/movie-data'
+
+export async function generateMetadata({ params } : { params: {movie_title: string} }) {
+  const baseUrl = process.env.BASE_URL || 'https://winearth.sdsc.edu'
+  const pageData = await getMovieData(params.movie_title);
+
+  return {
+    title: pageData.movie,
+    openGraph: {
+      type: 'website',
+      url: `${baseUrl}/${pageData.movie}`,
+      title: pageData.movie,
+      description: `View movie ${pageData.movie} of Earth from the ISS`,
+      siteName: 'Windows on Earth',
+    },
+  };
+}
 
 export default async function Page({ params }: { params: { movie_title: string } }) {
   const movieData = await getMovieData(params.movie_title)
