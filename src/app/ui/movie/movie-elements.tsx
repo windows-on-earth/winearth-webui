@@ -1,14 +1,15 @@
 'use client'
 
-import { Suspense, useEffect, useState } from "react"
+import { Suspense, useState } from "react"
+import Link from "next/link"
+import Image from "next/image"
+import { Button } from "@nextui-org/react"
+import { useRouter } from "next/navigation"
 import { Switch } from "@/app/ui/switch"
 import MainVideo from "@/app/ui/movie/main-video"
 import Loading from "@/app/movie/[movie_title]/loading"
 import { Movie } from "@/types/Movie"
-import { useRouter, usePathname } from "next/navigation"
-import Image from "next/image"
-import { Button } from "@nextui-org/react"
-import SharingPopover from "./sharingPopover"
+import SharingPopover from "@/app/ui/movie/sharingPopover"
 
 
 interface movieElementProps {
@@ -31,24 +32,6 @@ export default function MovieElements( { data } : movieElementProps) {
   const handleBackClick = () => {
     router.back()
   }
-
-  const handleDownloadVideo = async () => {
-    try {
-      const videoUrl = videoSource;
-      const videoRequest = new Request(videoUrl);
-      fetch(videoRequest)
-        .then(() => {
-          const link = document.createElement('a');
-          link.href = videoUrl;
-          link.setAttribute('download', `${data.movie}.mp4`);
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-        });
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   return (
     <div className="flex flex-col gap-1 mt-2">
@@ -83,8 +66,11 @@ export default function MovieElements( { data } : movieElementProps) {
         {/* Social */}
         <div className="flex flex-col gap-1 self-end m-0.5">
           <SharingPopover pathName={fullUrl}/>            
-          <Button
-            className="w-16 min-w-16 h-16 rounded-full bg-slate-200 p-0 flex items-center justify-center">
+          <Link
+            className="w-16 min-w-16 h-16 rounded-full bg-slate-200 p-0 flex items-center justify-center"
+            href={videoSource}
+            target="_blank"
+          >
             <div className="relative w-3/5 h-3/5 rounded-full m-auto">
               <Image
                 src="/iconmonstr-download-19.svg"
@@ -93,7 +79,7 @@ export default function MovieElements( { data } : movieElementProps) {
                 className="object-contain"
               />
             </div>
-          </Button>
+          </Link>
         </div>
       </div>
     </div>

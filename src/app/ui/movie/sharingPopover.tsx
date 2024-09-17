@@ -34,11 +34,6 @@ export default function SharingPopover({ pathName }: SharingPopoverProps) {
                   url={pathName} >
                   <FacebookIcon size={32} round />
                 </FacebookShareButton>
-                <FacebookMessengerShareButton
-                  url={pathName}
-                  appId={''} >
-                  <FacebookMessengerIcon size={32} round />
-                </FacebookMessengerShareButton>
                 <TwitterShareButton
                   url={pathName} >
                   <TwitterIcon size={32} round />
