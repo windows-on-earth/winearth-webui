@@ -3,11 +3,13 @@
 import { Suspense, useEffect, useState } from "react"
 import { Switch } from "@/app/ui/switch"
 import MainVideo from "@/app/ui/movie/main-video"
-import Button from "@/app/ui/button"
 import Loading from "@/app/movie/[movie_title]/loading"
 import { Movie } from "@/types/Movie"
-import { useRouter } from "next/navigation"
+import { useRouter, usePathname } from "next/navigation"
 import Image from "next/image"
+import { Button } from "@nextui-org/react"
+import SharingPopover from "./sharingPopover"
+
 
 interface movieElementProps {
   "data": Movie
@@ -18,6 +20,7 @@ export default function MovieElements( { data } : movieElementProps) {
   const [videoSource, setVideoSource] = useState(data.url)
   const datetime = new Date(Number(data.time_stamp)*1000)
   const router = useRouter()
+  const pathName = usePathname()
 
   const handleToggle = () => {
     setTimeLapse(!isTimeLapse)
@@ -30,9 +33,9 @@ export default function MovieElements( { data } : movieElementProps) {
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-1 mt-2">
       {/* Back button */}
-      <Button className="text-5xl dark:text-white" onClick={handleBackClick}>&lt;</Button>
+      <Button className="text-xl dark:text-white w-4 bg-neutral-400" onClick={handleBackClick}>Back</Button>
       <Suspense fallback={<Loading />}>
         <MainVideo source={videoSource}/>
       </Suspense>
@@ -61,22 +64,14 @@ export default function MovieElements( { data } : movieElementProps) {
         </div>          
         {/* Social */}
         <div className="flex flex-col gap-1 self-end m-0.5">
-          <Button className="inline-block h-16 w-16 bg-slate-200 dark:bg-white">
-            <div className="relative w-3/4 h-3/4 m-auto">
-              <Image
-                src="/iconmonstr-link-thin.svg"
-                alt="Share Link Icon"
-                fill={true}
-              />
-            </div>              
-          </Button>
-            
-          <Button className="inline-block h-16 w-16 bg-slate-200 dark:bg-white">
-            <div className="relative w-2/3 h-2/3 m-auto">
+          <SharingPopover pathName={pathName}/>            
+          <Button className="w-16 min-w-16 h-16 rounded-full bg-slate-200 p-0 flex items-center justify-center">
+            <div className="relative w-3/5 h-3/5 rounded-full m-auto">
               <Image
                 src="/iconmonstr-download-19.svg"
                 alt="Download Link Icon"
                 fill={true}
+                className="object-contain"
               />
             </div>
           </Button>
