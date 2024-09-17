@@ -12,7 +12,7 @@ export async function generateMetadata({ params } : { params: {movie_title: stri
     title: pageData.movie,
     openGraph: {
       type: 'website',
-      url: `${baseUrl}/${pageData.movie}`,
+      url: `${baseUrl}/movie/${pageData.movie}`,
       title: pageData.movie,
       description: `View movie ${pageData.movie} of Earth from the ISS`,
       siteName: 'Windows on Earth',
