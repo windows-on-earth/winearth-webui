@@ -32,6 +32,24 @@ export default function MovieElements( { data } : movieElementProps) {
     router.back()
   }
 
+  const handleDownloadVideo = async () => {
+    try {
+      const videoUrl = videoSource;
+      const videoRequest = new Request(videoUrl);
+      fetch(videoRequest)
+        .then(() => {
+          const link = document.createElement('a');
+          link.href = videoUrl;
+          link.setAttribute('download', `${data.movie}.mp4`);
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="flex flex-col gap-1 mt-2">
       {/* Back button */}
@@ -65,7 +83,8 @@ export default function MovieElements( { data } : movieElementProps) {
         {/* Social */}
         <div className="flex flex-col gap-1 self-end m-0.5">
           <SharingPopover pathName={pathName}/>            
-          <Button className="w-16 min-w-16 h-16 rounded-full bg-slate-200 p-0 flex items-center justify-center">
+          <Button
+            className="w-16 min-w-16 h-16 rounded-full bg-slate-200 p-0 flex items-center justify-center">
             <div className="relative w-3/5 h-3/5 rounded-full m-auto">
               <Image
                 src="/iconmonstr-download-19.svg"
