@@ -21,14 +21,14 @@ export default function MyDateRangePicker({onStartDate, onEndDate, className} : 
             <div className="flex justify-around">
                 <DatePicker
                     label="Start Date"
-                    defaultValue={parseDate("2009-08-14")}
+                    defaultValue={parseDate("2016-06-01")}
                     onChange={handleStartDate}
                     className="max-w-[284px]"
                     showMonthAndYearPickers
                 />
                 <DatePicker
                     label="End Date"
-                    defaultValue={parseDate("2011-08-19")}
+                    defaultValue={parseDate("2017-06-30")}
                     onChange={handleEndDate}
                     className="max-w-[284px]"
                     showMonthAndYearPickers
