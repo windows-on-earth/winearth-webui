@@ -42,7 +42,14 @@ export default function MovieElements( { data } : movieElementProps) {
       </Suspense>
       {/* <MainPhoto/> */}
       {/* Media UI elements */}
-      <div className="flex flex-row justify-between">
+      <div className="flex flex-row gap-2 justify-between">
+        <div className="relative aspect-[16/9] max-w-64 max-h-36">
+          <Image
+            src={data.iis_path_512}
+            alt="ISS Path on Map"
+            fill={true}
+          />
+        </div>
         {/* Media Info */}
         <div className="flex flex-col basis-3/4 flex-initial gap-2">
           <div className="">
